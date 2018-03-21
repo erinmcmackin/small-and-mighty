@@ -8,5 +8,13 @@
     <header>
       <h1>Small and Mighty</h1>
     </header>
+    <div class="articles-index">
+      <% for(i = 0; i < articles.length; i++){ %>
+        <div class="article-card">
+          <h2><%=articles[i].title; %></h2>
+          <img src='<%=articles[i].img; %>' alt="<%=articles[i].title; %>">
+        </div>
+      <% } %>
+    </div>
   </body>
 </html>
