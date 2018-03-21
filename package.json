@@ -1,0 +1,34 @@
+{
+  "name": "small-and-mighty",
+  "version": "1.0.0",
+  "description": "A user-friendly community center for small business owners",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erinmcmackin/small-and-mighty.git"
+  },
+  "keywords": [
+    "small",
+    "business",
+    "community",
+    "forum",
+    "business",
+    "entrepreneur",
+    "entrepreneurship"
+  ],
+  "author": "Erin McMackin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erinmcmackin/small-and-mighty/issues"
+  },
+  "homepage": "https://github.com/erinmcmackin/small-and-mighty#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.11"
+  }
+}
