@@ -6,7 +6,7 @@ const articleSchema = new mongoose.Schema({
   summary: {type: String, required: true},
   author: {type: String, required: true},
   img: {type: String, required: true}
-});
+}, {timestamps: true});
 
 const Article = mongoose.model('Article', articleSchema);
 

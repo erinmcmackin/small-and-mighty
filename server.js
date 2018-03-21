@@ -14,8 +14,14 @@ db.on('connected', ()=>{
 
 
 // ROUTES
+// render index/home page
 app.get('/', (req, res)=>{
   res.render('index.ejs');
+});
+
+// render new article page
+app.get('/new', (req, res)=>{
+  res.render('new.ejs');
 });
 
 
