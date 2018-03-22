@@ -28,6 +28,22 @@ router.get('/new', (req, res)=>{
   res.render('articles/new.ejs');
 });
 
+// json route to view db
+router.get('/json', (req, res)=>{
+  Article.find({}, (err, allArticles)=>{
+    res.send(allArticles);
+  });
+});
+
+// seed data
+router.get('/seed', (req, res)=>{
+  Article.create(seed, (err, createdArticles)=>{
+    console.log(createdArticles);
+    // redirect to index
+    res.redirect('/home');
+  });
+});
+
 // show route
 router.get('/:id', (req, res)=>{
   Article.findById(req.params.id, (err, foundArticle)=>{
@@ -62,21 +78,6 @@ router.delete('/:id', (req, res)=>{
   });
 });
 
-// json route to view db
-router.get('/json', (req, res)=>{
-  Article.find({}, (err, allArticles)=>{
-    res.send(allArticles);
-  });
-});
-
-// seed data
-router.get('/seed', (req, res)=>{
-  Article.create(seed, (err, createdArticles)=>{
-    console.log(createdArticles);
-    // redirect to index
-    res.redirect('/');
-  });
-});
 
 
 module.exports = router;
