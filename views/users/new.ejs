@@ -8,7 +8,7 @@
     <header>
       <h1>New User</h1>
     </header>
-    <form class="new-form" action="/users" method="POST">
+    <form class="new-user-form" action="/users" method="POST">
       <!-- name input -->
       <label for="name">Name</label>
       <input type="text" name="name" />
@@ -16,9 +16,9 @@
       <label for="password">Password</label>
       <input type="password" name="password" />
       <!-- articles input, hidden for new user -->
-      <input type="hidden" name="articles" />
+      <input type="hidden" name="articles" value="" />
       <!-- admim input, hidden for regular users -->
-      <input type="hidden" name="admin" />
+      <input type="hidden" name="admin" value="false"/>
       <!-- submit -->
       <input type="submit" value="Register" />
     </form>
