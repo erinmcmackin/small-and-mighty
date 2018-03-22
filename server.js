@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 
 const mongoURI = 'mongodb://localhost:27017/small_mighty';
 const db = mongoose.connection;
@@ -11,6 +12,7 @@ mongoose.connect(mongoURI);
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use(express.static('public'));
+app.use(methodOverride('_method'));
 
 // checking for connection to mongo
 db.on('connected', ()=>{

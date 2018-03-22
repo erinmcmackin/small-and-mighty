@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <header>
+      <h1>Edit Article</h1>
+    </header>
+    <form class="new-form" action="/home/<%=article.id; %>?_method=PUT" method="POST">
+      <!-- title input -->
+      <label for="title">Title</label>
+      <input type="text" name="title" value="<%=article.title; %>" />
+      <!-- body input -->
+      <label for="body">Body</label>
+      <input type="text" name="body" value="<%=article.body; %>" />
+      <!-- author input - - - REMOVE ONCE USERS WORK -->
+      <label for="author">Author</label>
+      <input type="text" name="author" value="<%=article.author; %>" />
+      <!-- image input -->
+      <label for="img">Link to Image</label>
+      <!-- added period to direct to correct place -->
+      <input type="text" name="img" value="<%=article.img; %>" />
+      <!-- submit -->
+      <input type="submit" value="Update Article" />
+    </form>
+  </body>
+</html>

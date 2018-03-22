@@ -37,6 +37,25 @@ router.get('/:id', (req, res)=>{
   });
 });
 
+// show edit page
+router.get('/:id/edit', (req, res)=>{
+  Article.findById(req.params.id, (err, foundArticle)=>{
+    res.render('articles/edit.ejs', {
+      article: foundArticle
+    });
+  });
+});
+
+// make edits to article
+// router.put
+router.put('/:id', (req, res)=>{
+  Article.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, foundArticle)=>{
+    res.render('articles/show.ejs', {
+      article: foundArticle
+    });
+  });
+});
+
 // json route to view db
 router.get('/json', (req, res)=>{
   Article.find({}, (err, allArticles)=>{
