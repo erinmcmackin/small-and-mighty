@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Article = require('../models/articles.js');
-const seed = require('../models/seed-articles.js');
+const Article = require('../models/articles/articles.js');
+const seed = require('../models/articles/seed-articles.js');
 
 
 // ROUTES
