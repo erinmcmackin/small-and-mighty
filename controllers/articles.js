@@ -25,7 +25,16 @@ router.post('/', (req, res)=>{
 
 // render new article page
 router.get('/new', (req, res)=>{
-  res.render('new.ejs');
+  res.render('articles/new.ejs');
+});
+
+// show route
+router.get('/:id', (req, res)=>{
+  Article.findById(req.params.id, (err, foundArticle)=>{
+    res.render('articles/show.ejs', {
+      article: foundArticle
+    });
+  });
 });
 
 // json route to view db

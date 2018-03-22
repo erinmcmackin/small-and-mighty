@@ -19,8 +19,8 @@
     <div class="articles-index">
       <% for(i = 0; i < articles.length; i++){ %>
         <div class="article-card">
-          <h2><%=articles[i].title; %></h2>
-          <img src='<%=articles[i].img; %>' alt="<%=articles[i].title; %>">
+          <h2><a href="/home/<%=articles[i].id%>"><%=articles[i].title; %></a></h2>
+          <a href="/home/<%=articles[i].id%>"><img src='<%=articles[i].img; %>' alt="<%=articles[i].title; %>"></a>
         </div>
       <% } %>
     </div>
