@@ -3,10 +3,12 @@ const app = express();
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 
-const mongoURI = 'mongodb://localhost:27017/small_mighty';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/small_mighty';
 const db = mongoose.connection;
 
 mongoose.connect(mongoURI);
+
+const port = process.env.PORT || 3000;
 
 // MIDDLEWARE
 app.use(express.urlencoded({extended:false}));
@@ -28,6 +30,6 @@ db.on('error', (err)=>{
 const articlesController = require('./controllers/articles.js');
 app.use('/home', articlesController);
 
-app.listen(3000, ()=>{
-  console.log('I\'m listening...');
+app.listen(port, ()=>{
+  console.log('I\'m listening on port ' + port);
 });
