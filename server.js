@@ -10,6 +10,8 @@ const db = mongoose.connection;
 mongoose.connect(mongoURI);
 
 // MIDDLEWARE
+app.use(express.urlencoded({extended:false}));
+app.use(express.json());
 app.use(express.static('public'));
 
 // checking for connection to mongo
@@ -24,6 +26,15 @@ db.on('error', (err)=>{
 
 
 // ROUTES
+
+// post new article content
+app.post('/', (req, res)=>{
+  Article.create(req.body, (err, createdArticle)=>{
+    console.log(createdArticle);
+    res.redirect('/');
+  });
+});
+
 // render index/home page
 app.get('/', (req, res)=>{
   Article.find({}, (err, allArticles)=>{
