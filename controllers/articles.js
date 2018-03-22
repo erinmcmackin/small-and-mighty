@@ -10,7 +10,8 @@ const seed = require('../models/articles/seed-articles.js');
 router.get('/', (req, res)=>{
   Article.find({}, (err, allArticles)=>{
     res.render('index.ejs', {
-      articles: allArticles
+      articles: allArticles,
+      currentUser: req.session.currentUser
     });
   });
 });

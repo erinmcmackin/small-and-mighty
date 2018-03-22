@@ -20,6 +20,10 @@ router.post('/', (req, res)=>{
 
 // seed users
 router.get('/seed', (req, res)=>{
+  // encrypt seeded passwords
+  seed.forEach((user)=>{
+    user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10));
+  });
   User.create(seed, (err, newUsers)=>{
     console.log(newUsers);
     res.redirect('/home');

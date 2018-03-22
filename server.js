@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
+const User = require('./models/users/users.js');
 
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/small_mighty';
 const db = mongoose.connection;
