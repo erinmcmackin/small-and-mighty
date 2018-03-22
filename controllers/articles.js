@@ -47,12 +47,18 @@ router.get('/:id/edit', (req, res)=>{
 });
 
 // make edits to article
-// router.put
 router.put('/:id', (req, res)=>{
   Article.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, foundArticle)=>{
     res.render('articles/show.ejs', {
       article: foundArticle
     });
+  });
+});
+
+// delete article
+router.delete('/:id', (req, res)=>{
+  Article.findByIdAndRemove(req.params.id, (err, data)=>{
+    res.redirect('/home');
   });
 });
 
