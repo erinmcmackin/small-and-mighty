@@ -14,15 +14,10 @@ router.post('/', (req, res)=>{
   req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
   User.create(req.body, (err, createdUser)=>{
     console.log(createdUser);
+    // after user is created, make them current user so they don't have to log in
     req.session.currentUser = createdUser;
     res.redirect('/home');
   });
-  // User.findOne({ // look up users's name
-  //   name: createdUser.name
-  // }, (err, foundUser)=>{
-  //   req.session.currentUser = foundUser;
-  //   res.redirect('/home');
-  // });
 });
 
 // seed users

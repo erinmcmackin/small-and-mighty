@@ -15,7 +15,8 @@ router.post('/', (req, res)=>{
   }, (err, foundUser)=>{
     if(!foundUser){
       res.send('user not found');
-      return;
+      res.redirect('/sessions/login');
+      // return;
     } else if(bcrypt.compareSync(req.body.password, foundUser.password)){
       req.session.currentUser = foundUser;
       res.redirect('/home');
