@@ -23,6 +23,7 @@ router.post('/', (req, res)=>{
     } else { // change to module alert if time
       res.send('wrong password, try again');
     };
+    console.log(req.session.currentUser);
   });
 });
 

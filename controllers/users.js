@@ -32,4 +32,11 @@ router.get('/seed', (req, res)=>{
   });
 });
 
+// json route to view db
+router.get('/json', (req, res)=>{
+  User.find({}, (err, allUsers)=>{
+    res.send(allUsers);
+  });
+});
+
 module.exports = router;

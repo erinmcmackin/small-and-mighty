@@ -1,8 +1,13 @@
+// ============
+// ARTICLE CONTROLLER
+// ============
+
 const express = require('express');
 const router = express.Router();
 const Article = require('../models/articles/articles.js');
 const seed = require('../models/articles/seed-articles.js');
 const session = require('express-session');
+const User = require('../models/users/users.js');
 
 
 // ROUTES
@@ -21,9 +26,7 @@ router.get('/', (req, res)=>{
 router.post('/', (req, res)=>{
   Article.create(req.body, (err, createdArticle)=>{
     console.log(createdArticle);
-    res.redirect('/home', {
-      currentUser: req.session.currentUser
-    });
+    res.redirect('/home');
   });
 });
 
@@ -43,11 +46,12 @@ router.get('/json', (req, res)=>{
 
 // seed data
 router.get('/seed', (req, res)=>{
-  Article.create(seed, (err, createdArticles)=>{
-    console.log(createdArticles);
-    // redirect to index
-    res.redirect('/home', {
-      currentUser: req.session.currentUser
+  User.findOne({name: 'Erin'}, (err, foundUser)=>{
+    Article.create(seed, (err, createdArticles)=>{
+      foundUser.articles.push(createdArticles);
+      foundUser.save((err, data)=>{
+        res.redirect('/home');
+      });
     });
   });
 });
