@@ -2,31 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Small & Mighty</title>
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
     <header>
-      <div class="header-title">
+      <!-- <div class="header-title">
         <h1>Small and Mighty</h1>
-      </div>
-      <div class="header-nav">
-        <ul>
-          <!-- update these for visibility for logged in users / not logged in -->
-          <% if(!currentUser){ %>
-          <li><a href="/sessions/login">Login</a></li>
-          <li><a href="/users/new">New User</a></li>
-          <% } %>
-          <% if(currentUser){ %>
-          <li><a href="/home/new">Create Article</a></li>
-          <li>
-            <form class="logout-form" action="/sessions?_method=DELETE" method="POST">
-              <input type="submit" value="Logout">
-            </form>
-          </li>
-          <% } %>
-        </ul>
-      </div>
+      </div> -->
+      <% include ./partials/header.ejs %>
     </header>
     <div class="articles-index">
       <% for(i = 0; i < articles.length; i++){ %>
