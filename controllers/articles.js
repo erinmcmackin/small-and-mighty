@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Article = require('../models/articles/articles.js');
 const seed = require('../models/articles/seed-articles.js');
+const session = require('express-session');
 
 
 // ROUTES
@@ -20,13 +21,17 @@ router.get('/', (req, res)=>{
 router.post('/', (req, res)=>{
   Article.create(req.body, (err, createdArticle)=>{
     console.log(createdArticle);
-    res.redirect('/home');
+    res.redirect('/home', {
+      currentUser: req.session.currentUser
+    });
   });
 });
 
 // render new article page
 router.get('/new', (req, res)=>{
-  res.render('articles/new.ejs');
+  res.render('articles/new.ejs', {
+    currentUser: req.session.currentUser
+  });
 });
 
 // json route to view db
@@ -41,7 +46,9 @@ router.get('/seed', (req, res)=>{
   Article.create(seed, (err, createdArticles)=>{
     console.log(createdArticles);
     // redirect to index
-    res.redirect('/home');
+    res.redirect('/home', {
+      currentUser: req.session.currentUser
+    });
   });
 });
 
@@ -49,7 +56,8 @@ router.get('/seed', (req, res)=>{
 router.get('/:id', (req, res)=>{
   Article.findById(req.params.id, (err, foundArticle)=>{
     res.render('articles/show.ejs', {
-      article: foundArticle
+      article: foundArticle,
+      currentUser: req.session.currentUser
     });
   });
 });
@@ -58,7 +66,8 @@ router.get('/:id', (req, res)=>{
 router.get('/:id/edit', (req, res)=>{
   Article.findById(req.params.id, (err, foundArticle)=>{
     res.render('articles/edit.ejs', {
-      article: foundArticle
+      article: foundArticle,
+      currentUser: req.session.currentUser
     });
   });
 });
@@ -67,7 +76,8 @@ router.get('/:id/edit', (req, res)=>{
 router.put('/:id', (req, res)=>{
   Article.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, foundArticle)=>{
     res.render('articles/show.ejs', {
-      article: foundArticle
+      article: foundArticle,
+      currentUser: req.session.currentUser
     });
   });
 });
