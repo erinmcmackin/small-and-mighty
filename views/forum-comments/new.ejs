@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head.ejs %>
+  </head>
+  <body>
+    <header>
+      <% include ../partials/header.ejs %>
+      <h1>New Comment</h1>
+    </header>
+    <form class="new-post-com-form" action="/forum/comments" method="POST">
+      <!-- question input -->
+      <label for="comment">Comment</label>
+      <input type="text" name="comment" />
+      <!-- author input -->
+      <input type="hidden" name="author" value="<%currentUser;%>"/>
+      <!-- keep id of post -->
+      <input type="hidden" name="postId" value="<%=postId;%>"/>
+      <!-- submit -->
+      <input type="submit" value="Post" />
+    </form>
+  </body>
+</html>

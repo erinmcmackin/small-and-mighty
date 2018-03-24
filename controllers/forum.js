@@ -67,25 +67,64 @@ router.get('/:id', (req, res)=>{
     User.findOne({'posts._id':req.params.id}, (err, foundUser)=>{
       // if else statement to create a valid author statement in the ejs file
       if(foundUser){
-        console.log(foundUser);
+        // console.log(foundUser);
         res.render('forum/show.ejs', {
           post: foundPost,
           currentUser: req.session.currentUser,
           author: foundUser,
-          comments: foundPost.comments
+          comments: foundPost.comments,
+          postId: req.params.id
         });
       } else {
-        console.log('author not found');
+        // console.log('author not found');
         res.render('forum/show.ejs', {
           post: foundPost,
           currentUser: req.session.currentUser,
           author: false,
-          comments: foundPost.comments
+          comments: foundPost.comments,
+          postId: req.params.id
         });
       };
     });
   });
 });
 
+// render new comment page
+router.get('/:id/new-comment', (req, res)=>{
+  if(req.session.currentUser){
+    res.render('forum-comments/new.ejs', {
+      currentUser: req.session.currentUser,
+      postId: req.params.id
+    });
+  } else {
+    res.redirect('/sessions/login');
+  };
+});
+
+// post new comment
+router.post('/:id', (req, res)=>{
+  forumComment.create(req.body, (err, createdComment)=>{
+    console.log(createdComment);
+    Post.findOne({_id:req.body.postId}, (err, foundPost)=>{
+      console.log(foundPost);
+      foundPost.comments.push(createdComment);
+      foundPost.save((err, data)=>{
+        User.findOne({name: req.session.currentUser.name}, (err, foundUser)=>{
+          console.log(foundUser);
+          foundUser.posts.push(createdComment);
+          foundUser.save((err, data)=>{
+            res.render('forum/show.ejs', {
+              post: foundPost,
+              currentUser: req.session.currentUser,
+              author: false,
+              comments: foundPost.comments,
+              postId: req.params.id
+            });
+          });
+        });
+      });
+    });
+  });
+});
 
 module.exports = router;

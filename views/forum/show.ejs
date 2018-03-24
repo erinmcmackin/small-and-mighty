@@ -21,9 +21,7 @@
           Author: <%=author.name; %>
         <% } %>
         </p>
-        <% if(currentUser){ %>
-          <a href="/comments/new"><button>Add Response</button></a>
-        <% } %>
+        <a href="/forum/<%=postId;%>/new-comment"><button>Add Response</button></a>
         <h4>Responses</h4>
         <% if(comments){ %>
           <% for(i = 0; i < comments.length; i++){ %>

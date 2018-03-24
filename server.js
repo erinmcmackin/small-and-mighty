@@ -47,6 +47,9 @@ app.use('/sessions', sessionsController);
 const forumController = require('./controllers/forum.js');
 app.use('/forum', forumController);
 
+// const forumCommentController = require('./controllers/forum-comments.js');
+// app.use('/forum/comments', forumCommentController);
+
 app.listen(port, ()=>{
   console.log('I\'m listening on port ' + port);
 });
