@@ -4,25 +4,32 @@
     <% include ../partials/head.ejs %>
   </head>
   <body>
+    <header>
+      <% include ../partials/header.ejs %>
+    </header>
     <div class="show-container">
       <header>
         <h1><%=article.title; %></h1>
-        <div class="header-nav">
-          <ul>
-            <li><a href="/home">Home</a></li>
-          </ul>
-        </div>
       </header>
       <div class="show-main">
         <img src="<%=article.img; %>" alt="<%=article.title; %>">
         <article class="show-article">
           <%=article.body; %>
         </article>
-        Author: <br>
-        <a href="/home/<%=article.id%>/edit"><button>Edit Article</button></a>
-        <form class="show-delete" action="/home/<%=article.id; %>?_method=DELETE" method="POST">
-          <input type="submit" value="Delete Article" />
-        </form>
+        <p>
+          <!-- only the author or admin can edit an article -->
+        <% if(author){ %>
+          Author: <%=author.name; %>
+        <% } %>
+        </p>
+        <% if(currentUser){ %>
+          <% if(currentUser.admin || currentUser.name === article.author) { %>
+          <a href="/home/<%=article.id%>/edit"><button>Edit Article</button></a>
+          <form class="show-delete" action="/home/<%=article.id; %>?_method=DELETE" method="POST">
+            <input type="submit" value="Delete Article" />
+          </form>
+          <% } %>
+        <% } %>
       </div>
     </body>
     </div>

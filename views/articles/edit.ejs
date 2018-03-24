@@ -17,7 +17,7 @@
       <input type="text" name="body" value="<%=article.body; %>" />
       <!-- author input - - - REMOVE ONCE USERS WORK -->
       <label for="author">Author</label>
-      <input type="text" name="author" value="<%=article.author; %>" />
+      <input type="text" name="author" value="<% if(author){ %><%=author.name; %><% } else { %><%}%>" />
       <!-- image input -->
       <label for="img">Link to Image</label>
       <input type="text" name="img" value="<%=article.img; %>" />

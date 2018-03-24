@@ -3,7 +3,8 @@
 </div>
 <div class="header-nav">
   <ul>
-    <!-- update these for visibility for logged in users / not logged in -->
+    <!-- different visibility for logged in users / not logged in -->
+    <li><a href="/home">Home</a></li>
     <% if(!currentUser){ %>
     <li><a href="/sessions/login">Login</a></li>
     <li><a href="/users/new">New User</a></li>

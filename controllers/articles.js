@@ -25,8 +25,16 @@ router.get('/', (req, res)=>{
 // post new article content
 router.post('/', (req, res)=>{
   Article.create(req.body, (err, createdArticle)=>{
-    console.log(createdArticle);
-    res.redirect('/home');
+    User.findOne({name:req.body.author}, (err, foundUser)=>{
+      if(foundUser){
+        foundUser.articles.push(createdArticle);
+        foundUser.save((err, data)=>{
+          res.redirect('/home');
+        });
+      } else {
+        res.redirect('/home');
+      };
+    });
   });
 });
 
@@ -64,12 +72,21 @@ router.get('/:id', (req, res)=>{
   Article.findById(req.params.id, (err, foundArticle)=>{
     // console.log(req.params.id.toString());
     User.findOne({'articles._id':req.params.id}, (err, foundUser)=>{
-      console.log(foundUser);
-      res.render('articles/show.ejs', {
-        article: foundArticle,
-        currentUser: req.session.currentUser,
-        author: foundUser
-      });
+      if(foundUser){
+        console.log(foundUser);
+        res.render('articles/show.ejs', {
+          article: foundArticle,
+          currentUser: req.session.currentUser,
+          author: foundUser
+        });
+      } else {
+        console.log('author not found');
+        res.render('articles/show.ejs', {
+          article: foundArticle,
+          currentUser: req.session.currentUser,
+          author: foundArticle.author
+        });
+      };
     });
   });
 });
@@ -77,9 +94,22 @@ router.get('/:id', (req, res)=>{
 // show edit page
 router.get('/:id/edit', (req, res)=>{
   Article.findById(req.params.id, (err, foundArticle)=>{
-    res.render('articles/edit.ejs', {
-      article: foundArticle,
-      currentUser: req.session.currentUser
+    User.findOne({'articles._id': req.params.id}, (err, foundAuthor)=>{
+      if(foundAuthor){
+        console.log(foundAuthor);
+          res.render('articles/edit.ejs', {
+          article: foundArticle,
+          currentUser: req.session.currentUser,
+          author: foundAuthor
+        });
+      } else {
+        console.log('author not found');
+        res.render('articles/edit.ejs', {
+          article: foundArticle,
+          currentUser: req.session.currentUser,
+          author: foundArticle.author
+        });
+      };
     });
   });
 });
@@ -87,9 +117,27 @@ router.get('/:id/edit', (req, res)=>{
 // make edits to article
 router.put('/:id', (req, res)=>{
   Article.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, foundArticle)=>{
-    res.render('articles/show.ejs', {
-      article: foundArticle,
-      currentUser: req.session.currentUser
+    User.findOne({'articles._id': req.params.id}, (err, foundUser)=>{
+      if(!foundUser){
+        console.log('Please choose a current user');
+        res.redirect('/home/' + req.params.id);
+      } else if(foundUser.name !== req.body.author){
+        foundUser.articles.id(req.params.id).remove();
+        foundUser.save((err, savedFoundUser)=>{
+          User.findOne({name: req.body.author}, (err, newAuthor)=>{
+            newAuthor.articles.push(foundArticle);
+            newAuthor.save((err, savedNewAuthor)=>{
+              res.redirect('/home/' + req.params.id);
+            });
+          });
+        });
+      } else if (foundUser.name === req.body.author){
+        foundUser.articles.id(req.params.id).remove();
+        foundUser.articles.push(foundArticle);
+        foundUser.save((err, data)=>{
+          res.redirect('/home/' + req.params.id);
+        });
+      };
     });
   });
 });
