@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
   //   ref: 'Article'
   // }],
   admin: {type: Boolean, default: false},
-  articles: [mongoose.Schema.Types.Mixed]
+  // articles: [mongoose.Schema.Types.Mixed]
+  articles: [Article.schema]
 });
 
 

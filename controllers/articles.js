@@ -47,21 +47,29 @@ router.get('/json', (req, res)=>{
 // seed data
 router.get('/seed', (req, res)=>{
   User.findOne({name: 'Erin'}, (err, foundUser)=>{
-    Article.create(seed, (err, createdArticles)=>{
-      foundUser.articles.push(createdArticles);
-      foundUser.save((err, data)=>{
-        res.redirect('/home');
+    seed.forEach((article)=>{
+      Article.create(article, (err, createdArticle)=>{
+        foundUser.articles.push(createdArticle);
+        foundUser.save();
       });
     });
+    // foundUser.save((err, data)=>{
+      res.redirect('/home');
+    // });
   });
 });
 
 // show route
 router.get('/:id', (req, res)=>{
   Article.findById(req.params.id, (err, foundArticle)=>{
-    res.render('articles/show.ejs', {
-      article: foundArticle,
-      currentUser: req.session.currentUser
+    // console.log(req.params.id.toString());
+    User.findOne({'articles._id':req.params.id}, (err, foundUser)=>{
+      console.log(foundUser);
+      res.render('articles/show.ejs', {
+        article: foundArticle,
+        currentUser: req.session.currentUser,
+        author: foundUser
+      });
     });
   });
 });
