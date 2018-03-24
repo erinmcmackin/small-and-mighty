@@ -1,13 +1,15 @@
+// ============
+// FORUM MODEL - SCHEMA
+// ============
+
 const mongoose = require('mongoose');
-const Author = require('../users/users.js');
 const forumComment = require('../comments/forum-com.js');
 
-const forumSchema = new mongoose.Schem({
-  title: {type: String, required: true},
+const forumSchema = new mongoose.Schema({
+  question: {type: String, required: true},
   description: {type: String, required: true},
-  author: Author.schema,
   comments: [forumComment.schema]
-});
+}, {timestamps: true});
 
 const Post = mongoose.model('Post', forumSchema);
 

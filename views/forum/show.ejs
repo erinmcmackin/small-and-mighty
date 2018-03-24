@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head.ejs %>
+  </head>
+  <body>
+    <header>
+      <% include ../partials/header.ejs %>
+    </header>
+    <div class="show-post-container">
+      <header>
+        <h1><%=post.question; %></h1>
+      </header>
+      <div class="show-post-main">
+        <article class="show-post">
+          <%=post.description; %>
+        </article>
+        <p>
+          <!-- only the author or admin can edit an article -->
+        <% if(author){ %>
+          Author: <%=author.name; %>
+        <% } %>
+        </p>
+        <% if(currentUser){ %>
+          <a href="/comments/new"><button>Add Response</button></a>
+        <% } %>
+        <h4>Responses</h4>
+        <% if(comments){ %>
+          <% for(i = 0; i < comments.length; i++){ %>
+            <p>
+              <%=comments[i].comment;%>
+            </p>
+          <% } %>
+        <% } %>
+      </div>
+    </body>
+    </div>
+</html>

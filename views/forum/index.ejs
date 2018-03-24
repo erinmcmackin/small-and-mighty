@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head.ejs %>
+  </head>
+  <body>
+    <header>
+      <% include ../partials/header.ejs %>
+    </header>
+    <div class="forum-container">
+      <h1>Community Forum</h1>
+      <a href="/forum/new">Add a Question or Comment</a>
+      <% for(i = 0; i < posts.length; i++){ %>
+        <h3><a href="/forum/<%=posts[i].id;%>"><%=posts[i].question; %></a></h3>
+      <% } %>
+    </div>
+  </body>
+</html>

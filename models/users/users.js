@@ -4,17 +4,16 @@
 
 const mongoose = require('mongoose');
 const Article = require('../articles/articles.js');
+const forumComment = require('../comments/forum-com.js');
+const Post = require('../forum/forum.js');
 
 const userSchema = new mongoose.Schema({
   name: {type: String, required: true},
   password: {type: String, required: true},
-  // articles: [{
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Article'
-  // }],
   admin: {type: Boolean, default: false},
-  // articles: [mongoose.Schema.Types.Mixed]
-  articles: [Article.schema]
+  articles: [Article.schema],
+  posts: [Post.schema],
+  forumComments: [forumComment.schema]
 });
 
 
