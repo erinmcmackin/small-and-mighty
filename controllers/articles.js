@@ -27,6 +27,7 @@ router.post('/', (req, res)=>{
   Article.create(req.body, (err, createdArticle)=>{
     User.findOne({name:req.body.author}, (err, foundUser)=>{
       if(foundUser){
+        // if author is a user, add to their articles array
         foundUser.articles.push(createdArticle);
         foundUser.save((err, data)=>{
           res.redirect('/home');
@@ -55,6 +56,7 @@ router.get('/json', (req, res)=>{
 // seed data
 router.get('/seed', (req, res)=>{
   User.findOne({name: 'Erin'}, (err, foundUser)=>{
+    // added forEach to get around the schema (without this, it creates an array in the articles array, which violates the schema)
     seed.forEach((article)=>{
       Article.create(article, (err, createdArticle)=>{
         foundUser.articles.push(createdArticle);
@@ -72,6 +74,7 @@ router.get('/:id', (req, res)=>{
   Article.findById(req.params.id, (err, foundArticle)=>{
     // console.log(req.params.id.toString());
     User.findOne({'articles._id':req.params.id}, (err, foundUser)=>{
+      // if else statement to create a valid author statement in the ejs file
       if(foundUser){
         console.log(foundUser);
         res.render('articles/show.ejs', {
@@ -84,7 +87,7 @@ router.get('/:id', (req, res)=>{
         res.render('articles/show.ejs', {
           article: foundArticle,
           currentUser: req.session.currentUser,
-          author: foundArticle.author
+          author: false
         });
       };
     });
@@ -95,6 +98,7 @@ router.get('/:id', (req, res)=>{
 router.get('/:id/edit', (req, res)=>{
   Article.findById(req.params.id, (err, foundArticle)=>{
     User.findOne({'articles._id': req.params.id}, (err, foundAuthor)=>{
+      // if else statement to create a valid author statement in the ejs file
       if(foundAuthor){
         console.log(foundAuthor);
           res.render('articles/edit.ejs', {
@@ -118,10 +122,22 @@ router.get('/:id/edit', (req, res)=>{
 router.put('/:id', (req, res)=>{
   Article.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, foundArticle)=>{
     User.findOne({'articles._id': req.params.id}, (err, foundUser)=>{
+      // don't allow userse to edit articles that don't have an author that is a current user
       if(!foundUser){
-        console.log('Please choose a current user');
-        res.redirect('/home/' + req.params.id);
+        // if a user wasn't found with the article, check for all users
+        User.findOne({name: req.body.author}, (err, foundUserName)=>{
+          if(foundUserName){
+            foundUserName.articles.push(foundArticle);
+            foundUserName.save((err, data)=>{
+              res.redirect('/home/' + req.params.id);
+            });
+          } else {
+            console.log('Please choose a current user'); // update this to an alert if time
+            res.redirect('/home/' + req.params.id);
+          };
+        });
       } else if(foundUser.name !== req.body.author){
+        // if the author changes, edit the user profiles
         foundUser.articles.id(req.params.id).remove();
         foundUser.save((err, savedFoundUser)=>{
           User.findOne({name: req.body.author}, (err, newAuthor)=>{
@@ -132,6 +148,7 @@ router.put('/:id', (req, res)=>{
           });
         });
       } else if (foundUser.name === req.body.author){
+        // if the user doesn't change, update the current author's profile with the edited article
         foundUser.articles.id(req.params.id).remove();
         foundUser.articles.push(foundArticle);
         foundUser.save((err, data)=>{
@@ -145,7 +162,12 @@ router.put('/:id', (req, res)=>{
 // delete article
 router.delete('/:id', (req, res)=>{
   Article.findByIdAndRemove(req.params.id, (err, data)=>{
-    res.redirect('/home');
+    User.findOne({'articles._id':req.params.id}, (err, foundUser)=>{
+      foundUser.articles.id(req.params.id).remove();
+      foundUser.save((err, data)=>{
+        res.redirect('/home');
+      });
+    });
   });
 });
 
