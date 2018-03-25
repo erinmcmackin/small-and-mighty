@@ -44,11 +44,30 @@ body {
 }
 
 /* ========== */
-/* SHOW */
+/* ARTICLES SHOW */
 /* ========== */
 
+.show-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.show-container h1 {
+  position: absolute;
+  z-index: 1;
+  margin: 3px;
+  color: white;
+  background: rgba(81, 84, 81, .8);
+  padding: 3px;
+}
+
 .show-main img {
-  width: 200px;
+  position: relative;
+  width: 500px;
+  object-fit: contain;
+  margin-bottom: 10px;
 }
 
 /* ========== */
