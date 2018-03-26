@@ -191,3 +191,18 @@ header h1 {
   text-transform: uppercase;
   color: #808251;
 }
+
+/* ========== */
+/* FORUM SHOW */
+/* ========== */
+
+.show-post-main {
+  margin-left: 20px;
+}
+/* ========== */
+/* FORUM NEW */
+/* ========== */
+
+.new-post-form {
+  margin-left: 20px;
+}
