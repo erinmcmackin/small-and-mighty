@@ -21,7 +21,7 @@ router.post('/', (req, res)=>{
       // return;
     } else if(bcrypt.compareSync(req.body.password, foundUser.password)){
       req.session.currentUser = foundUser;
-      res.redirect('/home');
+      res.redirect('/');
     } else { // change to module alert if time
       res.send('wrong password, try again');
     };
@@ -32,7 +32,7 @@ router.post('/', (req, res)=>{
 // log out - end sessions
 router.delete('/', (req, res)=>{
   req.session.destroy(()=>{
-    res.redirect('/home');
+    res.redirect('/');
   });
 });
 

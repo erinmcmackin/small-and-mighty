@@ -18,7 +18,7 @@ router.post('/', (req, res)=>{
     console.log(createdUser);
     // after user is created, make them current user so they don't have to log in
     req.session.currentUser = createdUser;
-    res.redirect('/home');
+    res.redirect('/');
   });
 });
 
@@ -30,7 +30,7 @@ router.get('/seed', (req, res)=>{
   });
   User.create(seed, (err, newUsers)=>{
     console.log(newUsers);
-    res.redirect('/home');
+    res.redirect('/');
   });
 });
 

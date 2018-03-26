@@ -12,7 +12,7 @@ const User = require('../models/users/users.js');
 
 // ROUTES
 
-// render index/home page
+// render index page
 router.get('/', (req, res)=>{
   Article.find({}, (err, allArticles)=>{
     res.render('index.ejs', {
@@ -30,10 +30,10 @@ router.post('/', (req, res)=>{
         // if author is a user, add to their articles array
         foundUser.articles.push(createdArticle);
         foundUser.save((err, data)=>{
-          res.redirect('/home');
+          res.redirect('/');
         });
       } else {
-        res.redirect('/home');
+        res.redirect('/');
       };
     });
   });
@@ -64,7 +64,7 @@ router.get('/seed', (req, res)=>{
       });
     });
     // foundUser.save((err, data)=>{
-      res.redirect('/home');
+      res.redirect('/');
     // });
   });
 });
@@ -129,11 +129,11 @@ router.put('/:id', (req, res)=>{
           if(foundUserName){
             foundUserName.articles.push(foundArticle);
             foundUserName.save((err, data)=>{
-              res.redirect('/home/' + req.params.id);
+              res.redirect('/' + req.params.id);
             });
           } else {
             console.log('Please choose a current user'); // update this to an alert if time
-            res.redirect('/home/' + req.params.id);
+            res.redirect('/' + req.params.id);
           };
         });
       } else if(foundUser.name !== req.body.author){
@@ -143,7 +143,7 @@ router.put('/:id', (req, res)=>{
           User.findOne({name: req.body.author}, (err, newAuthor)=>{
             newAuthor.articles.push(foundArticle);
             newAuthor.save((err, savedNewAuthor)=>{
-              res.redirect('/home/' + req.params.id);
+              res.redirect('/' + req.params.id);
             });
           });
         });
@@ -152,7 +152,7 @@ router.put('/:id', (req, res)=>{
         foundUser.articles.id(req.params.id).remove();
         foundUser.articles.push(foundArticle);
         foundUser.save((err, data)=>{
-          res.redirect('/home/' + req.params.id);
+          res.redirect('/' + req.params.id);
         });
       };
     });
@@ -165,7 +165,7 @@ router.delete('/:id', (req, res)=>{
     User.findOne({'articles._id':req.params.id}, (err, foundUser)=>{
       foundUser.articles.id(req.params.id).remove();
       foundUser.save((err, data)=>{
-        res.redirect('/home');
+        res.redirect('/');
       });
     });
   });

@@ -32,7 +32,7 @@ router.get('/seed', (req, res)=>{
       });
     });
     // foundUser.save((err, data)=>{
-      res.redirect('/home');
+      res.redirect('/');
     // });
   });
 });
