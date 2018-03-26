@@ -5,14 +5,14 @@
 <div class="header-nav">
   <ul>
     <!-- different visibility for logged in users / not logged in -->
-    <li><a href="/home">Home</a></li>
+    <li><a href="/">Home</a></li>
     <% if(!currentUser){ %>
     <li><a href="/sessions/login">Login</a></li>
     <li><a href="/users/new">New User</a></li>
     <% } %>
     <li><a href="/forum">Forum</a></li>
     <% if(currentUser){ %>
-    <li><a href="/home/new">Create Article</a></li>
+    <li><a href="/new">Create Article</a></li>
     <li>
       <form class="logout-form" action="/sessions?_method=DELETE" method="POST">
         <input type="submit" value="Logout">

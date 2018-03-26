@@ -8,7 +8,7 @@
       <% include ../partials/header.ejs %>
       <h1>Edit Article</h1>
     </header>
-    <form class="new-form" action="/home/<%=article.id; %>?_method=PUT" method="POST">
+    <form class="new-form" action="/<%=article.id; %>?_method=PUT" method="POST">
       <!-- title input -->
       <label for="title">Title</label>
       <input type="text" name="title" value="<%=article.title; %>" />
