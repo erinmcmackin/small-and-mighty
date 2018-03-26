@@ -9,7 +9,9 @@
     </header>
     <div class="forum-container">
       <h1>Community Forum</h1>
-      <a href="/forum/new">Add a Question or Comment</a>
+      <div class="new-question">
+        <a href="/forum/new">Add a Question or Comment</a>
+      </div>
       <% for(i = 0; i < posts.length; i++){ %>
         <h3><a href="/forum/<%=posts[i].id;%>"><%=posts[i].question; %></a></h3>
       <% } %>
