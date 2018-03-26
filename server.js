@@ -36,7 +36,7 @@ db.on('error', (err)=>{
 
 // CONTROLLERS
 const articlesController = require('./controllers/articles.js');
-app.use('/home', articlesController);
+app.use('/', articlesController);
 
 const usersController = require('./controllers/users.js');
 app.use('/users', usersController);
