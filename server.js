@@ -35,9 +35,6 @@ db.on('error', (err)=>{
 });
 
 // CONTROLLERS
-const articlesController = require('./controllers/articles.js');
-app.use('/', articlesController);
-
 const usersController = require('./controllers/users.js');
 app.use('/users', usersController);
 
@@ -46,6 +43,9 @@ app.use('/sessions', sessionsController);
 
 const forumController = require('./controllers/forum.js');
 app.use('/forum', forumController);
+
+const articlesController = require('./controllers/articles.js');
+app.use('/', articlesController);
 
 // const forumCommentController = require('./controllers/forum-comments.js');
 // app.use('/forum/comments', forumCommentController);
