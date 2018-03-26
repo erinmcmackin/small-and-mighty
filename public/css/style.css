@@ -192,17 +192,14 @@ header h1 {
   color: #808251;
 }
 
-/* ========== */
-/* FORUM SHOW */
-/* ========== */
-
 .show-post-main {
   margin-left: 20px;
 }
-/* ========== */
-/* FORUM NEW */
-/* ========== */
 
 .new-post-form {
+  margin-left: 20px;
+}
+
+.new-post-com-form {
   margin-left: 20px;
 }
