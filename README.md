@@ -20,6 +20,9 @@ Forum:
 Anyone can view the forum and forum comments, but only signed-in users can create posts or comment on posts.
 Posts and comments cannot be edited or deleted.
 
+Seeds:
+Created seed data for articles, users, and forum posts.
+
 Future Enhancements:
 -Timestamps on articles and posts
 -New password match validation
@@ -28,3 +31,4 @@ Future Enhancements:
 -Unique names
 -Redirect back after login
 -New comment from forum page
+-Comments on articles
