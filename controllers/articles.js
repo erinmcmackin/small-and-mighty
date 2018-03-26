@@ -163,10 +163,14 @@ router.put('/:id', (req, res)=>{
 router.delete('/:id', (req, res)=>{
   Article.findByIdAndRemove(req.params.id, (err, data)=>{
     User.findOne({'articles._id':req.params.id}, (err, foundUser)=>{
-      foundUser.articles.id(req.params.id).remove();
-      foundUser.save((err, data)=>{
+      if(foundUser){
+        foundUser.articles.id(req.params.id).remove();
+        foundUser.save((err, data)=>{
+          res.redirect('/');
+        });
+      } else {
         res.redirect('/');
-      });
+      };
     });
   });
 });
